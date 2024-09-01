@@ -20,10 +20,20 @@ function getSearchResultTitleLinks() {
     return links;
 }
 
+let inputSequence = '';
+let timeout; 
+
 document.addEventListener('keydown', function(event) {
     if (event.key >= '1' && event.key <= '9') {
-        // Using the key pressed, click on the corresponding link
-        const index = parseInt(event.key) - 1;
+
+        inputSequence += event.key; 
+        clearTimeout(timeout); 
+
+        timeout = setTimeout(function() {
+            inputSequence = ''; 
+        }, 500);
+
+        const index = parseInt(inputSequence) - 1;
         const links = getSearchResultTitleLinks();
         const link = links[index];
         link.click();
